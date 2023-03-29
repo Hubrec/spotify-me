@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>My Spotify Profile</title>
+        <script src="src/script.js" type="module"></script>
+    </head>
+    <body style="background-color: #111111; color: white; overflow-x: none">
+
+      <a id="link" href="#" style="text-decoration: none; color: white; position: absolute; top: 40px; left: 40px">
+        <section id="profile" style="display: flex; flex-direction: column; align-items: center;">
+            <span id="avatar"></span>
+            <div class="background" style="background: #171717; border-radius: 5px; position: relative; bottom: 30px; padding: 5px; box-shadow: 6px 4px 4px #505050;">
+                <h1 style="margin: 3px; text-align: center; font-size: 20px;"><span id="displayName"></span></h1>
+                <p style="margin: 0; font-size: 12px;">ID : <span id="id"></span></p>
+            </div>
+        </section>
+      </a>
+
+      <h1 style="text-align: center; margin-top: 50px; margin-bottom: 100px">Spotify Me</h1>
+
+      <div class="main-container" style="display: flex; flex-direction: column; align-items: center;">
+
+        <div class="topTracks">
+            <h2 style="text-align: center;" id="titleTracks"></h2>
+            <div id="trackContainer" style="display: flex; flex-direction: row; overflow-x: scroll; width: 100vw;">
+            
+            </div>
+        </div>
+
+        <div class="topArtists">
+          <h2 style="text-align: center" id="titleArtists"></h2>
+          <div id="artistContainer" style="display: flex; flex-direction: row; overflow-x: scroll; width: 100vw">
+          
+          </div>
+      </div>
+
+      </div>
+        
+    </body>
+</html>
