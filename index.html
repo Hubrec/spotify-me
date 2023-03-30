@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>My Spotify Profile</title>
         <script src="src/script.js" type="module"></script>
+        <script src="src/scriptCollapse.js" type="module"></script>
     </head>
     <body style="background-color: #111111; color: white; overflow-x: none">
 
@@ -17,23 +18,39 @@
         </section>
       </a>
 
-      <h1 style="text-align: center; margin-top: 50px; margin-bottom: 100px">Spotify Me</h1>
+      <h1 id="title" style="text-align: center; margin-top: 50px; margin-bottom: 100px">Spotify Me</h1>
 
       <div class="main-container" style="display: flex; flex-direction: column; align-items: center;">
 
         <div class="topTracks">
-            <h2 style="text-align: center;" id="titleTracks"></h2>
-            <div id="trackContainer" style="display: flex; flex-direction: row; overflow-x: scroll; width: 100vw;">
+            <div style="display: flex; flex-direction: row; width: 100vw; align-items: center">
+              <button class="collapse-trigger" style="background-repeat: no-repeat; margin-left: 30px; height: 25px; width: 25px; background-color: transparent; border: none; background-image: center"></button>
+              <h2 style="text-align: center; margin-left: 30px" id="titleTracks"></h2>
+            </div>
+            <div id="trackContainer" class="collapse-content" style="display: flex; flex-direction: row; overflow-x: scroll; width: 100vw;">
             
             </div>
         </div>
 
         <div class="topArtists">
-          <h2 style="text-align: center" id="titleArtists"></h2>
-          <div id="artistContainer" style="display: flex; flex-direction: row; overflow-x: scroll; width: 100vw">
+          <div style="display: flex; flex-direction: row; width: 100vw; align-items: center">
+            <button class="collapse-trigger" style="background-repeat: no-repeat; margin-left: 30px; height: 25px; width: 25px; background-color: transparent; border: none; background-image: center"></button>
+            <h2 style="text-align: center; margin-left: 30px" id="titleArtists"></h2>
+          </div>
+          <div id="artistContainer" class="collapse-content" style="display: flex; flex-direction: row; overflow-x: scroll; width: 100vw">
           
           </div>
-      </div>
+        </div>
+
+        <div class="playlists">
+          <div style="display: flex; flex-direction: row; width: 100vw; align-items: center">
+            <button class="collapse-trigger" style="background-repeat: no-repeat; margin-left: 30px; height: 25px; width: 25px; background-color: transparent; border: none; background-image: center"></button>
+            <h2 style="text-align: center; margin-left: 30px" id="titlePlaylists"></h2>
+          </div>
+          <div id="playlistsContainer" class="collapse-content" style="display: flex; flex-direction: row; overflow-x: scroll; width: 100vw">
+          
+          </div>
+        </div>
 
       </div>
         

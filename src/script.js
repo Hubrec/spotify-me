@@ -11,7 +11,8 @@ if (code) {
     const profile = await fetchProfile(accessToken);
     const topTracks = await fetchTopTracks(accessToken);
     const topArtists = await fetchTopArtists(accessToken);
-    populateUIContent(profile, topTracks, topArtists);
+    const playlists = await fetchPlaylists(accessToken);
+    populateUIContent(profile, topTracks, topArtists, playlists);
 } else {
     redirectToAuthCodeFlow(clientId);
 }
@@ -20,7 +21,7 @@ async function fetchProfile(token) {
     const result = await fetch("https://api.spotify.com/v1/me", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
     });
-    console.log(result)
+
     return await result.json();
 }
 
@@ -33,7 +34,7 @@ async function fetchMathisProfile(token) {
 }
 
 async function fetchTopTracks(token) {
-    const res = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50", {
+    const res = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -41,13 +42,22 @@ async function fetchTopTracks(token) {
 }
 
 async function fetchTopArtists(token) {
-    const res = await fetch("https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50", {
+    const res = await fetch("https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
     });
 
     return await res.json();
 }
 
+async function fetchPlaylists(token) {
+    const res = await fetch("https://api.spotify.com/v1/me/playlists", {
+        method: "GET", headers: { Authorization: `Bearer ${token}` }
+    });
+
+    return await res.json();
+}
+
+//unused function
 function populateUIProfile(profile) {
     document.getElementById("displayName").innerText = profile.display_name;
     document.getElementById("id").innerText = profile.id;
@@ -65,7 +75,7 @@ function populateUIProfile(profile) {
     }
 }
 
-function populateUIContent(profile, TT, TA) {
+function populateUIContent(profile, TT, TA, PU) {
     document.getElementById("displayName").innerText = profile.display_name;
     document.getElementById("id").innerText = profile.id;
     
@@ -163,5 +173,45 @@ function populateUIContent(profile, TT, TA) {
         artistItem.appendChild(artistName);
 
         topArtistsList.appendChild(link);
+    });
+
+    const titlePlaylists = document.getElementById("titlePlaylists");
+    titlePlaylists.innerText = "All your playlists";
+    const playlistsList = document.getElementById("playlistsContainer");
+    PU.items.forEach((playlist) => {
+        const link = document.createElement("a");
+        link.setAttribute("href", playlist.external_urls.spotify);
+        link.style.textDecoration = "none";
+        link.style.color = "white";
+
+        const playlistItem = document.createElement("div");
+        playlistItem.style.display = "flex";
+        playlistItem.style.flexDirection = "column";
+        playlistItem.style.alignItems = "center";
+        playlistItem.style.marginBottom = "20px";
+        link.appendChild(playlistItem);
+
+        const playlistPic = document.createElement("div");
+        playlistPic.style.height = "140px";
+        playlistPic.style.width = "140px";
+        playlistPic.style.backgroundImage = `url(${playlist.images[0].url})`;
+        playlistPic.style.backgroundSize = "cover";
+        playlistPic.style.backgroundPosition = "center";
+        playlistPic.style.margin = "10px";
+        playlistPic.style.borderRadius = "10px";
+        playlistItem.appendChild(playlistPic);
+        
+        const playlistName = document.createElement("p");
+        if (playlist.name.length > 15) {
+            playlistName.innerText = playlist.name.substring(0, 15) + "...";
+        } else {
+            playlistName.innerText = playlist.name;
+        }
+        playlistName.style.color = "white";
+        playlistName.style.textAlign = "center";
+        playlistName.style.margin = "0";
+        playlistItem.appendChild(playlistName);
+
+        playlistsList.appendChild(link);
     });
 }
